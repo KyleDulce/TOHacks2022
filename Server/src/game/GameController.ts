@@ -77,6 +77,7 @@ export default class GameController {
             default:
                 throw new Error("You should not be seeing this. Send help!!!!");
         }
+        upgrade.level = upgradeLevel;
         return upgrade;
     }
 
