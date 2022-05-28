@@ -46,7 +46,10 @@ export default class GameController {
         }
 
         let multiplier = event.team == 0? -1 : 1;
-        this.regions[event.region].infectedNumber + (clickValue * multiplier);
+        let newVal = this.regions[event.region].infectedNumber + (clickValue * multiplier);
+        if(newVal >= 0 || newVal <= this.regions[event.region].maxPopulation){
+            this.regions[event.region].infectedNumber = newVal;
+        }
     }
 
     public onUpgrade(event: UpgradeMessage) {
