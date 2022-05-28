@@ -43,46 +43,31 @@ export default class GameController {
     }
 
     public onUpgrade(event: UpgradeMessage) {
-        // TODO consider cost of upgrade
         let upgrade = upgrades.get(event.upgrade);
         if(upgrade === undefined){
-
             throw new Error("Upgrade not found");
-
         }
         
         if(upgrade.upgradeType === 'CLICKER_UPGRADE'){
-
             this.clickerUpgrades.push(upgrade);
-
         }else{
-
             this.passiveUpgrades.push(upgrade);
-
         }
 
         if(upgrade.upgradeSide === 'WHO'){
-
             this.whoUpgrades.push(event.upgrade);
-
         }else{
-
             this.infectionUpgrades.push(event.upgrade);
-
         }
     }
 
     public onRepeatingTask() {
-        //TODO
         let socket = SocketController.singleton;
-
-        socket.sendMessage('gameupdate', { regions: this.regions, infectedUpgrades: this.infectionUpgrades, whoUpgrades: this.whoUpgrades });
+        
         for(let upgrade of this.passiveUpgrades){
-
-            upgrade.execute();
-
+            upgrade.execute(0);
         }
-
+        socket.sendMessage('gameupdate', { regions: this.regions, infectedUpgrades: this.infectionUpgrades, whoUpgrades: this.whoUpgrades });
     }
 
     private getRandomInRange(min: number, max: number): number {
