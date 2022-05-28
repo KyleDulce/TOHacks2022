@@ -40,7 +40,9 @@ export default class GameController {
 
         let clickValue: number = 1;
         for(let upgrade of this.clickerUpgrades){
-            clickValue = upgrade.execute(clickValue);
+            if(upgrade.upgradeSide === event.team){
+                clickValue = upgrade.execute(clickValue);
+            }
         }
 
         let multiplier = event.team == 0? -1 : 1;
@@ -53,7 +55,7 @@ export default class GameController {
             throw new Error("Upgrade not found");
         }
 
-        if(upgrade.upgradeSide === 'WHO' && upgrade.upgradeCost <= this.whoPoints || upgrade.upgradeSide === 'INFECTION' && upgrade.upgradeCost <= this.infectionPoints){
+        if(upgrade.upgradeSide === 0 && upgrade.upgradeCost <= this.whoPoints || upgrade.upgradeSide === 1 && upgrade.upgradeCost <= this.infectionPoints){
 
             if(upgrade.upgradeType === 'CLICKER_UPGRADE'){
 
@@ -65,7 +67,7 @@ export default class GameController {
     
             }
     
-            if(upgrade.upgradeSide === 'WHO'){
+            if(upgrade.upgradeSide === 0){
     
                 this.whoUpgrades.push(event.upgrade);
     
