@@ -1,4 +1,5 @@
 import { ClickMessage, Region, UpgradeMessage } from "./model";
+import { Upgrade, upgrades } from "./upgrade";
 
 export default class GameController {
     static readonly DELAY_INTERVAL_FOR_LOOP_MILLIS = 1000;
@@ -7,6 +8,9 @@ export default class GameController {
     static readonly MAP_HEIGHT = 5;
 
     regions: Region[] = [];
+
+    private clickerUpgrades: Upgrade[] = [];
+    private passiveUpgrades: Upgrade[] = [];
 
     constructor() {
         const numOfRegions = GameController.MAP_HEIGHT * GameController.MAP_WIDTH;
@@ -22,15 +26,48 @@ export default class GameController {
     }
 
     public onClick(event: ClickMessage) {
+<<<<<<< HEAD
         
+=======
+        //TODO
+        for(let upgrade of this.clickerUpgrades){
+
+            upgrade.execute();
+
+        }
+
+>>>>>>> fa329d6d01c160a7a230dc7361960e2f6eddbf31
     }
 
     public onUpgrade(event: UpgradeMessage) {
         //TODO
+        let upgrade = upgrades.get(event.upgrade);
+        if(upgrade === undefined){
+
+            throw new Error("Upgrade not found");
+
+        }
+        
+        if(upgrade.upgradeType === 'CLICKER_UPGRADE'){
+
+            this.clickerUpgrades.push(upgrade);
+
+        }else{
+
+            this.passiveUpgrades.push(upgrade);
+
+        }
+
     }
 
     public onRepeatingTask() {
         //TODO
+        for(let upgrade of this.passiveUpgrades){
+
+            upgrade.execute();
+
+        }
+
     }
 
     private getRandomInRange(min: number, max: number): number {
