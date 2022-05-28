@@ -6,8 +6,8 @@ export default class GameController {
     static singleton: GameController;
     static readonly DELAY_INTERVAL_FOR_LOOP_MILLIS = 1000;
     static readonly MAXPOP = 5000;
-    static readonly MAP_WIDTH = 35;
-    static readonly MAP_HEIGHT = 5;
+    static readonly MAP_WIDTH = 5;
+    static readonly MAP_HEIGHT = 3;
 
     regions: Region[] = [];
 
@@ -26,7 +26,7 @@ export default class GameController {
             let region: Region = new Region();
             region.id = r;
             region.maxPopulation = this.getRandomInRange(100, GameController.MAXPOP);
-            region.infectedNumber = Math.floor(Math.random()) * GameController.MAXPOP;
+            region.infectedNumber = Math.round(Math.random()) * region.maxPopulation;
             this.regions.push(region);
         }
 
