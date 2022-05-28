@@ -47,7 +47,7 @@ export default class GameController {
 
         let multiplier = event.team == 0? -1 : 1;
         let newVal = this.regions[event.region].infectedNumber + (clickValue * multiplier);
-        if(newVal >= 0 || newVal <= this.regions[event.region].maxPopulation){
+        if(newVal >= 0 && newVal <= this.regions[event.region].maxPopulation){
             this.regions[event.region].infectedNumber = newVal;
         }
     }
@@ -94,6 +94,18 @@ export default class GameController {
 
         }
         socket.sendMessage('gameupdate', { regions: current.regions, infectedUpgrades: current.infectionUpgrades, whoUpgrades: current.whoUpgrades });
+    }
+
+    public addClicks(region: Region, team: 0 | 1, amount: number) {
+        let multiplier = team == 0? -1 : 1;
+        let newVal = region.infectedNumber + multiplier;
+        if(newVal >= 0 && newVal <= region.maxPopulation){
+            region.infectedNumber = newVal;
+        }
+    }
+
+    public getRegions(): Region[] {
+        return this.regions;
     }
 
     private getRandomInRange(min: number, max: number): number {
