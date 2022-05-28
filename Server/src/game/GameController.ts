@@ -13,8 +13,8 @@ export default class GameController {
 
     public clickerUpgrades: Upgrade[] = [];
     public passiveUpgrades: Upgrade[] = [];
-    private infectionPoints: number = 5000;
-    private whoPoints: number = 5000;
+    public infectionPoints: number = 100;
+    public whoPoints: number = 100;
     public whoUpgrades: number[] = [];
     public infectionUpgrades: number[] = [];
     public whoUpgradeCosts: number[] = [];

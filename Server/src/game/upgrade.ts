@@ -53,7 +53,14 @@ export class InfluencePointGrowthMultiplier extends Upgrade {
     }
 
     execute(clickValue: number): number {
-        //TODO done
+        let singleton = GameController.singleton;
+        
+        if(this.upgradeSide == 0) {
+            singleton.whoPoints += 5 * this.level;
+        } else {
+            singleton.infectionPoints += 5 * this.level;
+        }
+
         return 0;
     }
 }
@@ -62,10 +69,10 @@ export function setUpgrades(gameController: GameController) {
     gameController.clickerUpgrades = [
         new MultiplierUpgrade(0, 0, 20),
         new MultiplierUpgrade(0, 1, 20),
-        new AutoClickUpgrade(1, 0, 20),
-        new AutoClickUpgrade(1, 1, 20),
     ]
     gameController.passiveUpgrades = [
+        new AutoClickUpgrade(1, 0, 20),
+        new AutoClickUpgrade(1, 1, 20),
         new InfluencePointGrowthMultiplier(2, 0, 20),
         new InfluencePointGrowthMultiplier(2, 1, 20)
     ]
