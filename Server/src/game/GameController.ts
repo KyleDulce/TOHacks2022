@@ -74,11 +74,11 @@ export default class GameController {
     
             if(upgrade.upgradeSide === 0){
     
-                this.whoUpgrades.push(event.upgrade);
+                this.whoUpgrades[event.upgrade]++;
     
             }else{
     
-                this.infectionUpgrades.push(event.upgrade);
+                this.infectionUpgrades[event.upgrade]++;
     
             }
 
@@ -116,7 +116,13 @@ export default class GameController {
 
         }
         current.updatePoints();
-        socket.sendMessage('gameupdate', { regions: current.regions, infectedUpgrades: current.infectionUpgrades, whoUpgrades: current.whoUpgrades });
+        socket.sendMessage('gameupdate', 
+            { regions: current.regions,
+                infectedUpgrades: current.infectionUpgrades, 
+                whoUpgrades: current.whoUpgrades, 
+                infectedInfluence: current.infectionPoints,
+                whoInfluence: current.whoPoints
+            });
     }
 
     public addClicks(region: Region, team: 0 | 1, amount: number) {
