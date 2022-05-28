@@ -1,6 +1,6 @@
 import { ClickMessage, GameUpdateMessage, Region, UpgradeMessage } from "./model";
 import SocketController from "../SocketController";
-import { Upgrade, upgrades } from "./upgrade";
+import { setUpgrades, Upgrade, upgrades } from "./upgrade";
 
 export default class GameController {
     static singleton: GameController;
@@ -11,18 +11,20 @@ export default class GameController {
 
     regions: Region[] = [];
 
-    private clickerUpgrades: Upgrade[] = [];
-    private passiveUpgrades: Upgrade[] = [];
+    public clickerUpgrades: Upgrade[] = [];
+    public passiveUpgrades: Upgrade[] = [];
     private infectionPoints: number = 5000;
     private whoPoints: number = 5000;
-    private whoUpgrades: number[] = [];
-    private infectionUpgrades: number[] = [];
-    private whoUpgradeCosts: number[] = [];
-    private infectionUpgradeCosts: number[] = [];
+    public whoUpgrades: number[] = [];
+    public infectionUpgrades: number[] = [];
+    public whoUpgradeCosts: number[] = [];
+    public infectionUpgradeCosts: number[] = [];
 
     constructor() {
         GameController.singleton = this;
         const numOfRegions = GameController.MAP_HEIGHT * GameController.MAP_WIDTH;
+
+        setUpgrades(this);
         
         for(let r = 0; r < numOfRegions; r++) {
             let region: Region = new Region();

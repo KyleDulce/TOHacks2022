@@ -9,31 +9,30 @@ export abstract class Upgrade{
         public upgradeType: 'PASSIVE_UPGRADE' | 'CLICKER_UPGRADE',
         public upgradeSide: 0 | 1,
         public upgradeCost: number
-        ){  }
+        ){  
+            this.level = 0;
+        }
 
     abstract execute(clickValue: number): number;
+    public level: number;
 
 }
 
 export class MultiplierUpgrade extends Upgrade {
-    multiplier: number;
 
-    constructor(id: number, multipler: number, side: 0 | 1, price: number) {
+    constructor(id: number, side: 0 | 1, price: number) {
         super(id, 'CLICKER_UPGRADE', side, price);
-        this.multiplier = multipler;
     }
 
     execute(clickValue: number): number {
-        return clickValue * this.multiplier;
+        return clickValue * this.level;
     }
 }
 
 export class AutoClickUpgrade extends Upgrade {
-    multiplier: number;
 
-    constructor(id: number, multipler: number, side: 0 | 1, price: number) {
+    constructor(id: number, side: 0 | 1, price: number) {
         super(id, 'PASSIVE_UPGRADE', side, price);
-        this.multiplier = multipler;
     }
 
     execute(clickValue: number): number {
@@ -41,7 +40,7 @@ export class AutoClickUpgrade extends Upgrade {
         
         singleton.getRegions().forEach(region => {
             if(region.infectedNumber / region.maxPopulation != 0 && region.infectedNumber / region.maxPopulation != 1) {
-                singleton.addClicks(region, this.upgradeSide, this.multiplier);
+                singleton.addClicks(region, this.upgradeSide, this.level);
             }
         });
         return 0;
@@ -49,15 +48,37 @@ export class AutoClickUpgrade extends Upgrade {
 }
 
 export class InfluencePointGrowthMultiplier extends Upgrade {
-    multiplier: number;
-    constructor(id: number, multipler: number, side: 0 | 1, price: number) {
+    constructor(id: number, side: 0 | 1, price: number) {
         super(id, 'PASSIVE_UPGRADE', side, price);
-        this.multiplier = multipler;
     }
 
     execute(clickValue: number): number {
         //TODO done
         return 0;
     }
-    
+}
+
+export function setUpgrades(gameController: GameController) {
+    gameController.clickerUpgrades = [
+        new MultiplierUpgrade(0, 0, 20),
+        new MultiplierUpgrade(0, 1, 20),
+        new AutoClickUpgrade(1, 0, 20),
+        new AutoClickUpgrade(1, 1, 20),
+    ]
+    gameController.passiveUpgrades = [
+        new InfluencePointGrowthMultiplier(2, 0, 20),
+        new InfluencePointGrowthMultiplier(2, 1, 20)
+    ]
+    gameController.whoUpgrades = [
+        0,0,0
+    ]
+    gameController.infectionUpgrades = [
+        0,0,0
+    ]
+    gameController.whoUpgradeCosts = [
+        0,0,0
+    ]
+    gameController.infectionUpgradeCosts = [
+        0,0,0
+    ]
 }
