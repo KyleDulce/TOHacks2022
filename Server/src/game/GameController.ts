@@ -1,4 +1,5 @@
-import { ClickMessage, Region, UpgradeMessage } from "./model";
+import { ClickMessage, GameUpdateMessage, Region, UpgradeMessage } from "./model";
+import SocketController from "../SocketController";
 import { Upgrade, upgrades } from "./upgrade";
 
 export default class GameController {
@@ -11,6 +12,8 @@ export default class GameController {
 
     private clickerUpgrades: Upgrade[] = [];
     private passiveUpgrades: Upgrade[] = [];
+    private whoUpgrades: Number[] = [];
+    private infectionUpgrades: Number[] = [];
 
     constructor() {
         const numOfRegions = GameController.MAP_HEIGHT * GameController.MAP_WIDTH;
@@ -29,15 +32,18 @@ export default class GameController {
         if(!this.isAdjacentToRegion(event.region, event.team)) {
             return;
         }
-        
+
         let clickValue: number = 1;
         for(let upgrade of this.clickerUpgrades){
             clickValue = upgrade.execute(clickValue);
         }
+
+        let multiplier = event.team == 0? -1 : 1;
+        this.regions[event.region].infectedNumber + (clickValue * multiplier);
     }
 
     public onUpgrade(event: UpgradeMessage) {
-        //TODO
+        // TODO consider cost of upgrade
         let upgrade = upgrades.get(event.upgrade);
         if(upgrade === undefined){
 
@@ -55,10 +61,22 @@ export default class GameController {
 
         }
 
+        if(upgrade.upgradeSide === 'WHO'){
+
+            this.whoUpgrades.push(event.upgrade);
+
+        }else{
+
+            this.infectionUpgrades.push(event.upgrade);
+
+        }
     }
 
     public onRepeatingTask() {
         //TODO
+        let socket = SocketController.singleton;
+
+        socket.sendMessage('gameupdate', { regions: this.regions, infectedUpgrades: this.infectionUpgrades, whoUpgrades: this.whoUpgrades });
         for(let upgrade of this.passiveUpgrades){
 
             upgrade.execute();
