@@ -17,6 +17,8 @@ export default class GameController {
     private whoPoints: number = 5000;
     private whoUpgrades: number[] = [];
     private infectionUpgrades: number[] = [];
+    private whoUpgradeCosts: number[] = [];
+    private infectionUpgradeCosts: number[] = [];
 
     constructor() {
         GameController.singleton = this;

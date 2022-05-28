@@ -11,6 +11,8 @@ export class GameUpdateMessage {
     whoUpgrades: number[] = [];
     infectedInfluence: number = 0;
     whoInfluence: number = 0;
+    whoUpgradeCosts: number[] = [];
+    infectedUpgradeCosts: number[] = [];
 }
 
 export class ClickMessage {
