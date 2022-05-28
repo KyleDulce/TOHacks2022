@@ -8,13 +8,8 @@ function get(key: string, def: any = "", parse: boolean = false): any {
     return JSON.parse(value);
 }
 
-const storedName: string = get("name");
-const storedMode: string = get("mode", "light");
 
-export const name = writable(storedName);
-name.subscribe((value) => {
-    localStorage.setItem("name", value)
-});
+const storedMode: string = get("mode", "light");
 
 export const mode = writable(storedMode);
 mode.subscribe((value) => {

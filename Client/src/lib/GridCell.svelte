@@ -8,7 +8,7 @@
   on:click={() => {
     clickable && on_click();
   }}
-  class={`cell ${highlight ? "highlight" : "reg"} ` + $$props.class}
+  class={`cell reg ${highlight ? "highlight" : ""} ` + $$props.class}
   style={`cursor: ${clickable ? "pointer" : "default"}`}
 >
   <slot />
@@ -36,7 +36,8 @@
   }
 
   .highlight {
-    box-shadow: 0px 0px 10px 2px rgb(255, 221, 142);
+    /* box-shadow: 0px 0px 10px 2px rgb(255, 221, 142); */
+    background-color: var(--special-color);
   }
 
   .cell:hover {
