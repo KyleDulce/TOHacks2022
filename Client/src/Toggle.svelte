@@ -1,8 +1,12 @@
 <script lang="ts">
   import { mode } from "./stores";
 
+  if ($mode === "dark") {
+    window.document.body.classList.toggle("dark-mode");
+  }
   function toggle() {
     mode.set($mode === "light" ? "dark" : "light");
+
     window.document.body.classList.toggle("dark-mode");
   }
 </script>
