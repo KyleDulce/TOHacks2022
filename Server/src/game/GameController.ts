@@ -27,6 +27,7 @@ export default class GameController {
             region.id = r;
             region.maxPopulation = this.getRandomInRange(100, GameController.MAXPOP);
             region.infectedNumber = Math.floor(Math.random()) * GameController.MAXPOP;
+            this.regions.push(region);
         }
 
         setInterval(this.onRepeatingTask, GameController.DELAY_INTERVAL_FOR_LOOP_MILLIS);
