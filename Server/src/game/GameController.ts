@@ -78,9 +78,11 @@ export default class GameController {
     public onRepeatingTask() {
         let socket = SocketController.singleton;
         
-        for(let upgrade of this.passiveUpgrades){
+        this.passiveUpgrades.forEach(upgrade => {
+
             upgrade.execute(0);
-        }
+
+        });
         socket.sendMessage('gameupdate', { regions: this.regions, infectedUpgrades: this.infectionUpgrades, whoUpgrades: this.whoUpgrades });
     }
 
