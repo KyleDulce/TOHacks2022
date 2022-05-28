@@ -74,8 +74,6 @@
     --special-color-disabled: var(--whitespecialcolordisabled);
 
     --special-color-lip: var(--whitespecialcolorlip);
-
-
 }
 
 body {
@@ -297,3 +295,59 @@ scrollbar-width: none; /* Firefox */
 		opacity: 1.0;
 	}
 }
+
+
+@keyframes push {
+    50% {
+      transform: scale(0.8);
+    }
+  }
+  @keyframes pulse {
+    25% {
+      transform: scale(0.9);
+    }
+    75% {
+      transform: scale(1.1);
+    }
+  }
+
+  @keyframes shake {
+    0% {
+      transform: translate(1px, 1px) rotate(0deg);
+    }
+    10% {
+      transform: translate(-1px, -2px) rotate(-1deg);
+    }
+    20% {
+      transform: translate(-3px, 0px) rotate(1deg);
+    }
+    30% {
+      transform: translate(3px, 2px) rotate(0deg);
+      --accent-color-shadow: #fac1bb;
+    }
+    40% {
+      transform: translate(1px, -1px) rotate(1deg);
+      --accent-color-shadow: #f89990;
+    }
+    50% {
+      transform: translate(-1px, 2px) rotate(-1deg);
+      --accent-color-shadow: #ff6253;
+    }
+    60% {
+      transform: translate(-3px, 1px) rotate(0deg);
+      --accent-color-shadow: #ff412f;
+    }
+    70% {
+      transform: translate(3px, 1px) rotate(-1deg);
+      --accent-color-shadow: #ca3022;
+    }
+    80% {
+      transform: translate(-1px, -1px) rotate(1deg);
+    }
+    90% {
+      transform: translate(1px, 2px) rotate(0deg);
+    }
+    100% {
+      transform: translate(1px, -2px) rotate(-1deg);
+    }
+  }
