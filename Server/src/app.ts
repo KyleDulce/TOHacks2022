@@ -8,8 +8,7 @@ import http from 'http';
 import { Server, Socket } from "socket.io";
 import cors from 'cors';
 import SocketController from "./SocketController";
-import ContentController from "./content_delivery_controller";
-
+import GameController from "./game/GameController";
 
 const expressInstance = express();
 expressInstance.use(cors);
@@ -21,11 +20,9 @@ const socketInstance = new Server(server, {
     }
 });
 
-//instantiate content delivery here
-const contentDeliveryController = new ContentController(expressInstance);
-
 //instantiate socket here
-const socketController = new SocketController(socketInstance);
+const gameController = new GameController();
+const socketController = new SocketController(socketInstance, gameController);
 
 server.listen(port, () => {
     console.log(`Running on port: ${port}`);
