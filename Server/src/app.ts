@@ -7,6 +7,7 @@ import express from "express";
 import http from 'http';
 import { Server, Socket } from "socket.io";
 import cors from 'cors';
+import SocketController from "./SocketController";
 
 const expressInstance = express();
 expressInstance.use(cors);
@@ -21,6 +22,7 @@ const socketInstance = new Server(server, {
 //instantiate content delivery here
 
 //instantiate socket here
+const socketController = new SocketController(socketInstance);
 
 server.listen(port, () => {
     console.log(`Running on port: ${port}`);
