@@ -9,6 +9,6 @@ export abstract class Upgrade{
 
     }
 
-    abstract execute(): void;
+    abstract execute(clickValue: number): number;
 
 }

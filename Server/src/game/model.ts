@@ -9,6 +9,8 @@ export class GameUpdateMessage {
     regions: Region[] = [];
     infectedUpgrades: number[] = [];
     whoUpgrades: number[] = [];
+    infectedInfluence: number = 0;
+    whoInfluence: number = 0;
 }
 
 export class ClickMessage {

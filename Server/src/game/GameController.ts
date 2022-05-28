@@ -26,17 +26,14 @@ export default class GameController {
     }
 
     public onClick(event: ClickMessage) {
-<<<<<<< HEAD
-        
-=======
-        //TODO
-        for(let upgrade of this.clickerUpgrades){
-
-            upgrade.execute();
-
+        if(!this.isAdjacentToRegion(event.region, event.team)) {
+            return;
         }
-
->>>>>>> fa329d6d01c160a7a230dc7361960e2f6eddbf31
+        
+        let clickValue: number = 1;
+        for(let upgrade of this.clickerUpgrades){
+            clickValue = upgrade.execute(clickValue);
+        }
     }
 
     public onUpgrade(event: UpgradeMessage) {
@@ -79,5 +76,35 @@ export default class GameController {
                 //note, if a grid is 5 in width, index 4 and 5 are not adjecent horizontally because next row
         return (Math.abs(id - other) == 1 && !(id % GameController.MAP_WIDTH == 0 || other % GameController.MAP_WIDTH == 0)) ||
                 (Math.abs(id - other) == GameController.MAP_WIDTH);
+    }
+
+    private isAdjacentToRegion(region_id: number, checkInfected: number) {
+        const maxRegionCount = GameController.MAP_WIDTH * GameController.MAP_HEIGHT;
+        let regionsToCheck: number[] = [];
+
+        //checks up and down
+        if(region_id - GameController.MAP_WIDTH >= 0) {
+            regionsToCheck.push(region_id - GameController.MAP_WIDTH);
+        }
+        if(region_id + GameController.MAP_WIDTH < maxRegionCount) {
+            regionsToCheck.push(region_id + GameController.MAP_WIDTH);
+        }
+
+        //checks left and right
+        //note if width 5 + 1, puts it on the next row, that is not adjecent
+        if((region_id + 1) < maxRegionCount && (region_id + 1) % GameController.MAP_WIDTH != 0) {
+            regionsToCheck.push(region_id + 1);
+        }
+        if((region_id - 1) >= 0 && (region_id - 1) % GameController.MAP_WIDTH != (GameController.MAP_WIDTH - 1)) {
+            regionsToCheck.push(region_id - 1);
+        }
+        
+        for(let r = 0; r < regionsToCheck.length; r++) {
+            let region: Region = this.regions[regionsToCheck[r]]
+            if(region.infectedNumber / region.maxPopulation == checkInfected) {
+                return true;
+            }
+        }
+        return false;
     }
 }
