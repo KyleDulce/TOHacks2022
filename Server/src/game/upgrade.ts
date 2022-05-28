@@ -88,10 +88,4 @@ export function setUpgrades(gameController: GameController) {
     gameController.infectionUpgrades = [
         0,0,0
     ]
-    gameController.whoUpgradeCosts = [
-        0,0,0
-    ]
-    gameController.infectionUpgradeCosts = [
-        0,0,0
-    ]
 }
