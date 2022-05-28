@@ -12,6 +12,8 @@ export default class GameController {
 
     private clickerUpgrades: Upgrade[] = [];
     private passiveUpgrades: Upgrade[] = [];
+    private infectionPoints: Number = 5000;
+    private whoPoints: Number = 5000;
     private whoUpgrades: Number[] = [];
     private infectionUpgrades: Number[] = [];
 
@@ -47,17 +49,29 @@ export default class GameController {
         if(upgrade === undefined){
             throw new Error("Upgrade not found");
         }
-        
-        if(upgrade.upgradeType === 'CLICKER_UPGRADE'){
-            this.clickerUpgrades.push(upgrade);
-        }else{
-            this.passiveUpgrades.push(upgrade);
-        }
 
-        if(upgrade.upgradeSide === 'WHO'){
-            this.whoUpgrades.push(event.upgrade);
-        }else{
-            this.infectionUpgrades.push(event.upgrade);
+        if(upgrade.upgradeSide === 'WHO' && upgrade.upgradeCost <= this.whoPoints || upgrade.upgradeSide === 'INFECTION' && upgrade.upgradeCost <= this.infectionPoints){
+
+            if(upgrade.upgradeType === 'CLICKER_UPGRADE'){
+
+                this.clickerUpgrades.push(upgrade);
+    
+            }else{
+    
+                this.passiveUpgrades.push(upgrade);
+    
+            }
+    
+            if(upgrade.upgradeSide === 'WHO'){
+    
+                this.whoUpgrades.push(event.upgrade);
+    
+            }else{
+    
+                this.infectionUpgrades.push(event.upgrade);
+    
+            }
+
         }
     }
 
