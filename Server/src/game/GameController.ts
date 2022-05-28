@@ -107,6 +107,8 @@ export default class GameController {
     
             }
 
+            upgrade.level++;
+
         }
     }
 
