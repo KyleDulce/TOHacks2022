@@ -12,6 +12,8 @@ export default class SocketController {
 
         SocketController.singleton = this;
         socket.sockets.on('connection', (socket: Socket) => {
+            console.log("New connection");
+
             socket.on('click', data => {
                 gameController.onClick(data);
             });

@@ -1,5 +1,5 @@
 //constants
-const port = process.env.PORT || 3000;
+const port: number = parseInt(process.env.PORT || "8001");
 
 console.log("Setting up...");
 
@@ -12,6 +12,7 @@ import GameController from "./game/GameController";
 
 const expressInstance = express();
 expressInstance.use(cors);
+expressInstance.use(express.static(__dirname + "/game"));
 
 const server = http.createServer(expressInstance);
 const socketInstance = new Server(server, {
@@ -24,7 +25,7 @@ const socketInstance = new Server(server, {
 const gameController = new GameController();
 const socketController = new SocketController(socketInstance, gameController);
 
-server.listen(port, () => {
+server.listen(port, "0.0.0.0", () => {
     console.log(`Running on port: ${port}`);
 });
 

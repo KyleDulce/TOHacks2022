@@ -3,6 +3,8 @@
   import Regions from "./lib/Regions.svelte";
   import Clicker from "./lib/Clicker.svelte";
   import Upgrades from "./lib/Upgrades.svelte";
+
+  import { WebSocket } from "./stores";
 </script>
 
 <Toggle />
