@@ -10,7 +10,6 @@ import cors from 'cors';
 import SocketController from "./SocketController";
 import GameController from "./game/GameController";
 
-const gameController = new GameController();
 const expressInstance = express();
 expressInstance.use(cors);
 
@@ -22,6 +21,7 @@ const socketInstance = new Server(server, {
 });
 
 //instantiate socket here
+const gameController = new GameController();
 const socketController = new SocketController(socketInstance, gameController);
 
 server.listen(port, () => {

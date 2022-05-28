@@ -6,10 +6,10 @@ export default class SocketController {
     static singleton: SocketController;
 
     constructor(private socket: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>, gameController: GameController) {
-        if(SocketController.singleton === undefined) {
+        if(SocketController.singleton !== undefined) {
             return;
         }
-        
+
         SocketController.singleton = this;
         socket.sockets.on('connection', (socket: Socket) => {
             socket.on('click', data => {

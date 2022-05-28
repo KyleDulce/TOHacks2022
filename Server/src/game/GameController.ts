@@ -3,6 +3,7 @@ import SocketController from "../SocketController";
 import { Upgrade, upgrades } from "./upgrade";
 
 export default class GameController {
+    static singleton: GameController;
     static readonly DELAY_INTERVAL_FOR_LOOP_MILLIS = 1000;
     static readonly MAXPOP = 5000;
     static readonly MAP_WIDTH = 35;
@@ -18,6 +19,7 @@ export default class GameController {
     private infectionUpgrades: Number[] = [];
 
     constructor() {
+        GameController.singleton = this;
         const numOfRegions = GameController.MAP_HEIGHT * GameController.MAP_WIDTH;
         
         for(let r = 0; r < numOfRegions; r++) {
@@ -75,15 +77,17 @@ export default class GameController {
         }
     }
 
+    //run from outside scope
     public onRepeatingTask() {
         let socket = SocketController.singleton;
+        const current = GameController.singleton;
         
-        for(let i = 0; i < this.passiveUpgrades.length; i++){
+        for(let i = 0; i < current.passiveUpgrades.length; i++){
 
-            this.passiveUpgrades[i].execute(0);
+            current.passiveUpgrades[i].execute(0);
 
         }
-        socket.sendMessage('gameupdate', { regions: this.regions, infectedUpgrades: this.infectionUpgrades, whoUpgrades: this.whoUpgrades });
+        socket.sendMessage('gameupdate', { regions: current.regions, infectedUpgrades: current.infectionUpgrades, whoUpgrades: current.whoUpgrades });
     }
 
     private getRandomInRange(min: number, max: number): number {
