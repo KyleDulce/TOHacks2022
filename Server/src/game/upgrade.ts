@@ -22,6 +22,7 @@ export class MultiplierUpgrade extends Upgrade {
 
     constructor(id: number, side: 0 | 1, price: number) {
         super(id, 'CLICKER_UPGRADE', side, price);
+        this.level = 1;
     }
 
     execute(clickValue: number): number {
@@ -80,12 +81,6 @@ export function setUpgrades(gameController: GameController) {
         0,0,0
     ]
     gameController.infectionUpgrades = [
-        0,0,0
-    ]
-    gameController.whoUpgradeCosts = [
-        0,0,0
-    ]
-    gameController.infectionUpgradeCosts = [
         0,0,0
     ]
 }
