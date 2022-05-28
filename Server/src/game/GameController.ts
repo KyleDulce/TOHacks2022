@@ -6,8 +6,8 @@ export default class GameController {
     static singleton: GameController;
     static readonly DELAY_INTERVAL_FOR_LOOP_MILLIS = 1000;
     static readonly MAXPOP = 5000;
-    static readonly MAP_WIDTH = 35;
-    static readonly MAP_HEIGHT = 5;
+    static readonly MAP_WIDTH = 5;
+    static readonly MAP_HEIGHT = 3;
 
     regions: Region[] = [];
 
@@ -26,7 +26,7 @@ export default class GameController {
             let region: Region = new Region();
             region.id = r;
             region.maxPopulation = this.getRandomInRange(100, GameController.MAXPOP);
-            region.infectedNumber = Math.floor(Math.random()) * GameController.MAXPOP;
+            region.infectedNumber = Math.round(Math.random()) * region.maxPopulation;
             this.regions.push(region);
         }
 
@@ -47,7 +47,7 @@ export default class GameController {
 
         let multiplier = event.team == 0? -1 : 1;
         let newVal = this.regions[event.region].infectedNumber + (clickValue * multiplier);
-        if(newVal >= 0 || newVal <= this.regions[event.region].maxPopulation){
+        if(newVal >= 0 && newVal <= this.regions[event.region].maxPopulation){
             this.regions[event.region].infectedNumber = newVal;
         }
     }
@@ -115,6 +115,18 @@ export default class GameController {
         }
         this.updatePoints();
         socket.sendMessage('gameupdate', { regions: current.regions, infectedUpgrades: current.infectionUpgrades, whoUpgrades: current.whoUpgrades });
+    }
+
+    public addClicks(region: Region, team: 0 | 1, amount: number) {
+        let multiplier = team == 0? -1 : 1;
+        let newVal = region.infectedNumber + multiplier;
+        if(newVal >= 0 && newVal <= region.maxPopulation){
+            region.infectedNumber = newVal;
+        }
+    }
+
+    public getRegions(): Region[] {
+        return this.regions;
     }
 
     private getRandomInRange(min: number, max: number): number {
