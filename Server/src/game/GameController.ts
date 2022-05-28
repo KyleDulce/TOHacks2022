@@ -13,10 +13,10 @@ export default class GameController {
 
     private clickerUpgrades: Upgrade[] = [];
     private passiveUpgrades: Upgrade[] = [];
-    private infectionPoints: Number = 5000;
-    private whoPoints: Number = 5000;
-    private whoUpgrades: Number[] = [];
-    private infectionUpgrades: Number[] = [];
+    private infectionPoints: number = 5000;
+    private whoPoints: number = 5000;
+    private whoUpgrades: number[] = [];
+    private infectionUpgrades: number[] = [];
 
     constructor() {
         GameController.singleton = this;
@@ -83,6 +83,26 @@ export default class GameController {
         }
     }
 
+    public updatePoints(){
+
+        let baseIncrease = 1;
+        let totalInfected = 0;
+        let totalPop = 0;
+        for(let region of this.regions){
+
+            totalInfected += region.infectedNumber;
+            totalPop += region.maxPopulation;
+
+        }
+
+        let infectionFactor = (totalInfected / totalPop) + 1;
+        let whoFactor = (1 - (totalInfected / totalPop)) + 1;
+        
+        this.whoPoints += Math.round(baseIncrease * whoFactor);
+        this.infectionPoints += Math.round(baseIncrease * infectionFactor);
+
+    }
+
     //run from outside scope
     public onRepeatingTask() {
         let socket = SocketController.singleton;
@@ -93,6 +113,7 @@ export default class GameController {
             current.passiveUpgrades[i].execute(0);
 
         }
+        this.updatePoints();
         socket.sendMessage('gameupdate', { regions: current.regions, infectedUpgrades: current.infectionUpgrades, whoUpgrades: current.whoUpgrades });
     }
 
