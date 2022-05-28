@@ -113,7 +113,7 @@ export default class GameController {
             current.passiveUpgrades[i].execute(0);
 
         }
-        this.updatePoints();
+        current.updatePoints();
         socket.sendMessage('gameupdate', { regions: current.regions, infectedUpgrades: current.infectionUpgrades, whoUpgrades: current.whoUpgrades });
     }
 
