@@ -2,6 +2,7 @@
 export class Region {
     id: number = -1;
     infectedNumber: number = -1;
+    maxPopulation: number = -1;
 }
 
 export class GameUpdateMessage {
