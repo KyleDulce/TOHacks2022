@@ -1,6 +1,6 @@
 import { ClickMessage, GameUpdateMessage, Region, UpgradeMessage } from "./model";
 import SocketController from "../SocketController";
-import { setUpgrades, Upgrade, upgrades } from "./upgrade";
+import { AutoClickUpgrade, InfluencePointGrowthMultiplier, MultiplierUpgrade, setUpgrades, Upgrade } from "./upgrade";
 
 export default class GameController {
     static singleton: GameController;
@@ -56,11 +56,33 @@ export default class GameController {
         }
     }
 
-    public onUpgrade(event: UpgradeMessage) {
-        let upgrade = upgrades.get(event.upgrade);
-        if(upgrade === undefined){
+    public getUpgradeInstance(team: 0 | 1, upgradeIdx: number){
+
+        let arr = team === 0 ? this.whoUpgrades : this.infectionUpgrades;
+        let upgradeLevel = arr[upgradeIdx];
+        if(upgradeLevel === undefined){
             throw new Error("Upgrade not found");
         }
+        let upgrade;
+        switch(upgradeIdx){
+            case 0:
+                upgrade = new MultiplierUpgrade(upgradeIdx, team);
+            break;
+            case 1:
+                upgrade = new AutoClickUpgrade(upgradeIdx, team);
+            break;
+            case 2:
+                upgrade = new InfluencePointGrowthMultiplier(upgradeIdx, team);
+            break;
+            default:
+                throw new Error("You should not be seeing this. Send help!!!!");
+        }
+        return upgrade;
+    }
+
+    public onUpgrade(event: UpgradeMessage) {
+    
+        let upgrade = this.getUpgradeInstance(event.team, event.upgrade);
 
         if(upgrade.upgradeSide === 0 && upgrade.upgradeCost <= this.whoPoints || upgrade.upgradeSide === 1 && upgrade.upgradeCost <= this.infectionPoints){
 

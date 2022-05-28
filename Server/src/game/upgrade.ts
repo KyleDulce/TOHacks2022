@@ -1,14 +1,13 @@
 import GameController from "./GameController";
 
-export const upgrades: Map<number, Upgrade> = new Map();
-
 export abstract class Upgrade{
+
+    public upgradeCost: number = 20;
     
     // PASSIVE_UPGRADE => timed stuff CLICKER_UPGRADE => clicks
     constructor(public upgradeId: number, 
         public upgradeType: 'PASSIVE_UPGRADE' | 'CLICKER_UPGRADE',
-        public upgradeSide: 0 | 1,
-        public upgradeCost: number
+        public upgradeSide: 0 | 1
         ){  
             this.level = 0;
         }
@@ -20,8 +19,10 @@ export abstract class Upgrade{
 
 export class MultiplierUpgrade extends Upgrade {
 
-    constructor(id: number, side: 0 | 1, price: number) {
-        super(id, 'CLICKER_UPGRADE', side, price);
+    public upgradeCost: number = 20;
+
+    constructor(id: number, side: 0 | 1) {
+        super(id, 'CLICKER_UPGRADE', side);
     }
 
     execute(clickValue: number): number {
@@ -31,8 +32,10 @@ export class MultiplierUpgrade extends Upgrade {
 
 export class AutoClickUpgrade extends Upgrade {
 
-    constructor(id: number, side: 0 | 1, price: number) {
-        super(id, 'PASSIVE_UPGRADE', side, price);
+    public upgradeCost: number = 20;
+
+    constructor(id: number, side: 0 | 1) {
+        super(id, 'PASSIVE_UPGRADE', side);
     }
 
     execute(clickValue: number): number {
@@ -48,8 +51,11 @@ export class AutoClickUpgrade extends Upgrade {
 }
 
 export class InfluencePointGrowthMultiplier extends Upgrade {
-    constructor(id: number, side: 0 | 1, price: number) {
-        super(id, 'PASSIVE_UPGRADE', side, price);
+
+    public upgradeCost: number = 20;
+
+    constructor(id: number, side: 0 | 1) {
+        super(id, 'PASSIVE_UPGRADE', side);
     }
 
     execute(clickValue: number): number {
@@ -67,14 +73,14 @@ export class InfluencePointGrowthMultiplier extends Upgrade {
 
 export function setUpgrades(gameController: GameController) {
     gameController.clickerUpgrades = [
-        new MultiplierUpgrade(0, 0, 20),
-        new MultiplierUpgrade(0, 1, 20),
+        new MultiplierUpgrade(0, 0),
+        new MultiplierUpgrade(0, 1),
     ]
     gameController.passiveUpgrades = [
-        new AutoClickUpgrade(1, 0, 20),
-        new AutoClickUpgrade(1, 1, 20),
-        new InfluencePointGrowthMultiplier(2, 0, 20),
-        new InfluencePointGrowthMultiplier(2, 1, 20)
+        new AutoClickUpgrade(1, 0),
+        new AutoClickUpgrade(1, 1),
+        new InfluencePointGrowthMultiplier(2, 0),
+        new InfluencePointGrowthMultiplier(2, 1)
     ]
     gameController.whoUpgrades = [
         0,0,0

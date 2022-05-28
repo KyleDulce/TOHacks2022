@@ -17,10 +17,10 @@ export class GameUpdateMessage {
 
 export class ClickMessage {
     region: number = -1;
-    team: number = -1;
+    team: 0 | 1 = 0;
 }
 
 export class UpgradeMessage {
     upgrade: number = -1;
-    team: number = -1;
+    team: 0 | 1 = 0;
 }
