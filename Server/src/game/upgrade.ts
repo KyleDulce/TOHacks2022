@@ -26,7 +26,7 @@ export class MultiplierUpgrade extends Upgrade {
     }
 
     execute(clickValue: number): number {
-        return clickValue * this.level;
+        return clickValue * (this.level + 1);
     }
 }
 
