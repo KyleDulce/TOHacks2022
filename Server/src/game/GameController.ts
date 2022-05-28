@@ -1,3 +1,4 @@
+import SocketController from "../SocketController";
 import { ClickMessage, UpgradeMessage } from "./model";
 import { Upgrade, upgrades } from "./upgrade";
 
@@ -43,6 +44,10 @@ export default class GameController {
 
     public onRepeatingTask() {
         //TODO
+        let socket = SocketController.singleton;
+
+        socket.sendMessage('gameupdate', );
+
         for(let upgrade of this.passiveUpgrades){
 
             upgrade.execute();
