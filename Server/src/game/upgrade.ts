@@ -9,7 +9,7 @@ export abstract class Upgrade{
         public upgradeCost: number
         ){  }
 
-    abstract execute(): void;
+    abstract execute(clickValue: number): number;
 
 }
 

@@ -1,5 +1,5 @@
-import SocketController from "../SocketController";
 import { ClickMessage, GameUpdateMessage, Region, UpgradeMessage } from "./model";
+import SocketController from "../SocketController";
 import { Upgrade, upgrades } from "./upgrade";
 
 export default class GameController {
@@ -31,12 +31,17 @@ export default class GameController {
     }
 
     public onClick(event: ClickMessage) {
-        //TODO
-        for(let upgrade of this.clickerUpgrades){
-
-            upgrade.execute();
-
+        if(!this.isAdjacentToRegion(event.region, event.team)) {
+            return;
         }
+
+        let clickValue: number = 1;
+        for(let upgrade of this.clickerUpgrades){
+            clickValue = upgrade.execute(clickValue);
+        }
+
+        let multiplier = event.team == 0? -1 : 1;
+        this.regions[event.region].infectedNumber + (clickValue * multiplier);
     }
 
     public onUpgrade(event: UpgradeMessage) {
@@ -79,7 +84,6 @@ export default class GameController {
         let socket = SocketController.singleton;
 
         socket.sendMessage('gameupdate', { regions: this.regions, infectedUpgrades: this.infectionUpgrades, whoUpgrades: this.whoUpgrades });
-
         for(let upgrade of this.passiveUpgrades){
 
             upgrade.execute();
@@ -97,5 +101,35 @@ export default class GameController {
                 //note, if a grid is 5 in width, index 4 and 5 are not adjecent horizontally because next row
         return (Math.abs(id - other) == 1 && !(id % GameController.MAP_WIDTH == 0 || other % GameController.MAP_WIDTH == 0)) ||
                 (Math.abs(id - other) == GameController.MAP_WIDTH);
+    }
+
+    private isAdjacentToRegion(region_id: number, checkInfected: number) {
+        const maxRegionCount = GameController.MAP_WIDTH * GameController.MAP_HEIGHT;
+        let regionsToCheck: number[] = [];
+
+        //checks up and down
+        if(region_id - GameController.MAP_WIDTH >= 0) {
+            regionsToCheck.push(region_id - GameController.MAP_WIDTH);
+        }
+        if(region_id + GameController.MAP_WIDTH < maxRegionCount) {
+            regionsToCheck.push(region_id + GameController.MAP_WIDTH);
+        }
+
+        //checks left and right
+        //note if width 5 + 1, puts it on the next row, that is not adjecent
+        if((region_id + 1) < maxRegionCount && (region_id + 1) % GameController.MAP_WIDTH != 0) {
+            regionsToCheck.push(region_id + 1);
+        }
+        if((region_id - 1) >= 0 && (region_id - 1) % GameController.MAP_WIDTH != (GameController.MAP_WIDTH - 1)) {
+            regionsToCheck.push(region_id - 1);
+        }
+        
+        for(let r = 0; r < regionsToCheck.length; r++) {
+            let region: Region = this.regions[regionsToCheck[r]]
+            if(region.infectedNumber / region.maxPopulation == checkInfected) {
+                return true;
+            }
+        }
+        return false;
     }
 }
