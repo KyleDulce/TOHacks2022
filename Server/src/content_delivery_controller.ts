@@ -2,9 +2,8 @@ import path from "path";
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
-import { Request, Response } from "express";
-import { Express } from 'express';
-const __dirname = dirname(fileURLToPath(import.meta.url));
+import { Express, Request, Response } from "express";
+//const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default class ContentController{
 
@@ -16,7 +15,7 @@ export default class ContentController{
     
         this.app.get('/file/:fileName', (res: Response, req: Request) => {
     
-            res.sendFile(path.join(__dirname, `/public/${req.params.fileName}`));
+            res.sendFile(`../public/${req.params.fileName}`);
         
         });
     

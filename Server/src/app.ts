@@ -8,7 +8,7 @@ import http from 'http';
 import { Server, Socket } from "socket.io";
 import cors from 'cors';
 import SocketController from "./SocketController";
-import ContentController from "../content_delivery_controller";
+import ContentController from "./content_delivery_controller";
 
 
 const expressInstance = express();
@@ -21,8 +21,8 @@ const socketInstance = new Server(server, {
     }
 });
 
-const contentDeliveryController = new ContentController(expressInstance);
 //instantiate content delivery here
+const contentDeliveryController = new ContentController(expressInstance);
 
 //instantiate socket here
 const socketController = new SocketController(socketInstance);
