@@ -180,7 +180,7 @@ export default class GameController {
             upgrade.upgradeCost += 10;
 
 
-            if (event.callback) {
+            if (event.callback != undefined) {
                 const current = GameController.singleton;
                 event.callback({
                     regions: current.regions,
