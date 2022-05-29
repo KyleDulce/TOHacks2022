@@ -4,6 +4,7 @@ export class Region {
     infectedNumber: number = -1;
     maxPopulation: number = -1;
     team: -1 | 0 | 1 | 2 = -1;
+    name: string = "Unknown";
 }
 
 export class GameUpdateMessage {

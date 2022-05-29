@@ -13,6 +13,7 @@
 
   <div class="stats">
     {#if $Region !== -1}
+      <h2>Region Name: {Selected?.name}</h2>
       <h2>
         Region infections: {Selected?.infectedNumber}
       </h2>
