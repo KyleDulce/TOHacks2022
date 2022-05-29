@@ -119,6 +119,8 @@ export default class GameController {
         let newVal = this.regions[event.region].infectedNumber + (clickValue * multiplier);
         if(newVal > this.regions[event.region].maxPopulation){
             newVal = this.regions[event.region].maxPopulation;
+        }else if(newVal < 0){
+            newVal = 0;
         }
         if(newVal >= 0){
             this.regions[event.region].infectedNumber = newVal;
