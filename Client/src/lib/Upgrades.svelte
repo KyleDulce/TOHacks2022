@@ -10,8 +10,8 @@
       : $GameState?.infectedUpgradeCosts;
 
   const titles = [
-    ["Mask Production", "Hospital Capacity", "Vaccination Research"],
-    ["Spreadability", "Make new variant", "Faster Mutation"],
+    ["Mask Production (Click Multiplyer)", "Hospital Capacity (Autoclicker)", "Vaccination Research (Influence Points Multiplyer)"],
+    ["Spreadability (Click Multiplyer)", "Make new variant (Autoclicker)", "Faster Mutation (Influence Points Multiplyer)"],
   ];
 
   const images = [
