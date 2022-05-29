@@ -19,11 +19,12 @@ mode.subscribe((value) => {
     localStorage.setItem("mode", value)
 });
 
-const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io("localhost:3000");
+const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io("0.0.0.0:3000");
 console.log("connected!");
 
 export const WebSocket: Readable<Socket<ServerToClientEvents, ClientToServerEvents>> = readable(socket);
 export const GameState: Writable<GameUpdate> = writable();
+export const Region: Writable<number> = writable(-1);
 
 socket.on("gameupdate", (state) => {
     GameState.set(state)

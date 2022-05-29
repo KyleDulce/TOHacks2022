@@ -3,6 +3,8 @@
   export let clickable: boolean = false;
   export let highlight: boolean = false;
   export let ratio: number;
+
+  $: color = `hsl(${((1.0 - ratio) * 120.0).toString(10)},70%,50%)`;
 </script>
 
 <div
@@ -10,9 +12,9 @@
     clickable && on_click();
   }}
   class={`cell reg ${highlight ? "highlight" : ""} ` + $$props.class}
-  style={`cursor: ${clickable ? "pointer" : "default"}; background-color: ${
-    ratio > 0.5 ? "red" : "green"
-  }`}
+  style={`cursor: ${
+    clickable ? "pointer" : "default"
+  }; background-color: ${color}`}
 >
   <slot />
 </div>
@@ -23,7 +25,6 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    /* background-color: var(--accent-color); */
     border-radius: 4px;
     margin: 1px;
     font-size: 2rem;
@@ -34,13 +35,13 @@
 
   .reg {
     box-shadow: var(--accent-color-shadow) 0px 4px 0px;
-
     /* box-shadow: 0px 0px 10px 2px var(--accent-color-shadow); */
   }
-
   .highlight {
     /* box-shadow: 0px 0px 10px 2px rgb(255, 221, 142); */
-    background-color: var(--special-color);
+    opacity: 0.5;
+    box-shadow: none;
+    /* background-color: var(--special-color); */
   }
 
   .cell:hover {

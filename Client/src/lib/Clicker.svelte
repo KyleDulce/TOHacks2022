@@ -1,21 +1,30 @@
 <script lang="ts">
-  import { WebSocket } from "../stores";
-  import { GameState } from "../stores";
+  import { WebSocket, GameState, Region } from "../stores";
 
   function click() {
-    $WebSocket.emit("click", 0, 0);
+    $WebSocket.emit("click", { region: $Region, team: 0 });
   }
+
+  $: Selected = $GameState?.regions[$Region >= 0 ? $Region : 0];
 </script>
 
 <div class="container clicker">
   <h1>Stats</h1>
 
   <div class="stats">
-    <h2>Region infections: {$GameState?.regions[0]?.infectedNumber}</h2>
-    <h2>Total Numbers:</h2>
+    {#if $Region !== -1}
+      <h2>
+        Region infections: {Selected?.infectedNumber}
+      </h2>
+      <h2>
+        Population: {Selected?.maxPopulation}
+      </h2>
+    {:else}
+      <h2>No Region Selected</h2>
+    {/if}
   </div>
 
-  <button on:click={click}>
+  <button on:click={click} disabled={$Region === -1}>
     <i class="fa-solid fa-earth-americas globe" />
   </button>
 </div>
