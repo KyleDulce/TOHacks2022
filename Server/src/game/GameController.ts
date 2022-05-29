@@ -38,6 +38,7 @@ export default class GameController {
     }
 
     public onClick(event: ClickMessage) {
+        console.log("click!");
         if(!this.isAdjacentToRegion(event.region, event.team)) {
             return;
         }
@@ -109,6 +110,18 @@ export default class GameController {
 
             upgrade.level++;
 
+            if (event.callback) {
+                const current = GameController.singleton;
+                event.callback({
+                    regions: current.regions,
+                    infectedUpgrades: current.infectionUpgrades,
+                    whoUpgrades: current.whoUpgrades,
+                    infectedInfluence: current.infectionPoints,
+                    whoInfluence: current.whoPoints,
+                    whoUpgradeCosts: current.whoUpgradeCosts,
+                    infectedUpgradeCosts: current.infectionUpgradeCosts
+                });
+            }
         }
     }
 
@@ -148,7 +161,9 @@ export default class GameController {
                 infectedUpgrades: current.infectionUpgrades, 
                 whoUpgrades: current.whoUpgrades, 
                 infectedInfluence: current.infectionPoints,
-                whoInfluence: current.whoPoints
+                whoInfluence: current.whoPoints,
+                whoUpgradeCosts: current.whoUpgradeCosts,
+                infectedUpgradeCosts: current.infectionUpgradeCosts
             });
     }
 

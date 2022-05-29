@@ -23,4 +23,5 @@ export class ClickMessage {
 export class UpgradeMessage {
     upgrade: number = -1;
     team: 0 | 1 = 0;
+    callback?: (state: GameUpdateMessage) => void
 }

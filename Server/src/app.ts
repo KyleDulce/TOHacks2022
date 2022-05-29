@@ -12,12 +12,12 @@ import GameController from "./game/GameController";
 
 const expressInstance = express();
 expressInstance.use(cors);
-expressInstance.use(express.static(__dirname + "/game"));
 
 const server = http.createServer(expressInstance);
 const socketInstance = new Server(server, {
     cors: {
-        origin: '*'
+        origin: '*',
+        methods: ["GET", "POST"]
     }
 });
 
