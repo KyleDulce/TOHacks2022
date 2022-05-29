@@ -25,7 +25,7 @@ const socketInstance = new Server(server, {
 const gameController = new GameController();
 const socketController = new SocketController(socketInstance, gameController);
 
-server.listen(port, "0.0.0.0", () => {
+server.listen(port, "localhost", () => {
     console.log(`Running on port: ${port}`);
 });
 
