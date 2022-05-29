@@ -7,8 +7,8 @@
   $: costs = $Team === 0 ? $GameState?.whoUpgradeCosts : $GameState?.infectedUpgradeCosts;
 
   const titles = [
-    ["Click Multiplier", "Auto Clicker", "Humanity Point Booster"],
-    ["Click Multiplier", "Auto Clicker", "Covid Point Booster"],
+    ["Mask Production", "Hospital Capacity", "Vaccination Research"],
+    ["Spreadability", "Make new variant", "Faster Mutation"],
   ];
 </script>
 
