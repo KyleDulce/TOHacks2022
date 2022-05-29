@@ -42,6 +42,7 @@
       }}>Covid</button
     >
   </div>
+  <h2>Influence Points: {$Team === 0 ? $GameState?.whoInfluence : $GameState?.infectedInfluence}</h2>
 </div>
 
 <style>
