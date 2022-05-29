@@ -2,7 +2,7 @@ import type { Writable, Readable} from 'svelte/store'
 import { writable, readable } from 'svelte/store';
 import { io, Socket } from "socket.io-client";
 
-import type {ServerToClientEvents, ClientToServerEvents, GameUpdate} from "./interfaces";
+import type {ServerToClientEvents, ClientToServerEvents, GameUpdate, team} from "./interfaces";
 
 function get(key: string, def: any = "", parse: boolean = false): any {
     const value = localStorage.getItem(key);
@@ -25,6 +25,7 @@ console.log("connected!");
 export const WebSocket: Readable<Socket<ServerToClientEvents, ClientToServerEvents>> = readable(socket);
 export const GameState: Writable<GameUpdate> = writable();
 export const Region: Writable<number> = writable(-1);
+export const Team: Writable<team> = writable(0);
 
 socket.on("gameupdate", (state) => {
     GameState.set(state)
