@@ -1,5 +1,5 @@
 //constants
-const port: number = parseInt(process.env.PORT || "3000");
+const port: number = parseInt(process.env.PORT || "80");
 
 console.log("Setting up...");
 
@@ -25,7 +25,7 @@ const socketInstance = new Server(server, {
 const gameController = new GameController();
 const socketController = new SocketController(socketInstance, gameController);
 
-server.listen(port, "localhost", () => {
+server.listen(port, "0.0.0.0", () => {
     console.log(`Running on port: ${port}`);
 });
 
