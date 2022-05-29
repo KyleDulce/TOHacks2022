@@ -17,8 +17,8 @@ export default class GameController {
     public whoPoints: number = 100;
     public whoUpgrades: number[] = [];
     public infectionUpgrades: number[] = [];
-    public whoUpgradeCosts: number[] = [];
-    public infectionUpgradeCosts: number[] = [];
+    public whoUpgradeCosts: number[] = [20, 20, 20];
+    public infectionUpgradeCosts: number[] = [20, 20, 20];
 
     constructor() {
         GameController.singleton = this;
@@ -101,14 +101,18 @@ export default class GameController {
             if(upgrade.upgradeSide === 0){
     
                 this.whoUpgrades[event.upgrade]++;
+                this.whoUpgradeCosts[event.upgrade] += 10;
     
             }else{
     
                 this.infectionUpgrades[event.upgrade]++;
+                this.infectionUpgradeCosts[event.upgrade] += 10;
     
             }
 
             upgrade.level++;
+            upgrade.upgradeCost += 10;
+
 
             if (event.callback) {
                 const current = GameController.singleton;
