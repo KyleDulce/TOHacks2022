@@ -28,7 +28,4 @@
   h2 {
     margin: 0;
   }
-  .container {
-    /* height: 30%; */
-  }
 </style>

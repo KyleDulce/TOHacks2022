@@ -8,6 +8,12 @@
     ["Click Multiplier", "Auto Clicker", "Humanity Point Booster"],
     ["Click Multiplier", "Auto Clicker", "Covid Point Booster"],
   ];
+
+  const images = [
+    "https://rimu.b-cdn.net/imgs/multiplier.png",
+    "https://rimu.b-cdn.net/imgs/autoclick.png",
+    "https://rimu.b-cdn.net/imgs/influencer.png",
+  ];
 </script>
 
 <div class="container main">
@@ -18,11 +24,19 @@
       <button
         class="item"
         on:click={() => {
-          $WebSocket.emit("upgrade", { upgrade: i, team: $Team });
+          $WebSocket.emit("upgrade", { upgrade: i, team: $Team }, (state) => {
+            GameState.set(state);
+          });
         }}
       >
-        <h3>{titles[$Team][i]}</h3>
-        <h3>Level {upgrade + 1}</h3>
+        <div class="cont">
+          <span class="in">
+            <h2>{titles[$Team][i]}</h2>
+            <h3>Level {upgrade + 1}</h3>
+          </span>
+
+          <img class="img" src={images[i]} alt="upgrade icon" />
+        </div>
       </button>
     {/each}
   </div>
@@ -47,5 +61,20 @@
 
   .item {
     height: 100%;
+    text-align: center;
+  }
+
+  .cont {
+    display: flex;
+    text-align: center;
+    justify-content: space-around;
+    padding: 1rem;
+  }
+  .img {
+    width: 10rem;
+  }
+
+  .in {
+    width: 100%;
   }
 </style>

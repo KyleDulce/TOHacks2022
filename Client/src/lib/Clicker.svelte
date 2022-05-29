@@ -26,7 +26,7 @@
   </div>
 
   <button class="clicker-btn" on:click={click} disabled={$Region === -1}>
-    <i class="fa-solid fa-earth-americas globe" />
+    <img src="https://rimu.b-cdn.net/imgs/globe.png" alt="globe" />
   </button>
 
   <h2 class="t">Choose Team:</h2>
@@ -104,8 +104,8 @@
     box-shadow: var(--special-color-lip) 0px 20px 0px;
   }
 
-  .globe {
-    font-size: 20rem;
+  img {
+    width: 18rem;
   }
 
   .clicker {

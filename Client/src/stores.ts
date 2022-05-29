@@ -12,7 +12,6 @@ function get(key: string, def: any = "", parse: boolean = false): any {
 }
 
 const storedMode: string = get("mode", "light");
-console.log(storedMode);
 
 export const mode = writable(storedMode);
 mode.subscribe((value) => {
