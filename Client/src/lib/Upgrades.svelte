@@ -4,6 +4,8 @@
   $: upgrades =
     $Team === 0 ? $GameState?.whoUpgrades : $GameState?.infectedUpgrades;
 
+  $: costs = $Team === 0 ? $GameState?.whoUpgradeCosts : $GameState?.infectedUpgradeCosts;
+
   const titles = [
     ["Click Multiplier", "Auto Clicker", "Humanity Point Booster"],
     ["Click Multiplier", "Auto Clicker", "Covid Point Booster"],
@@ -23,6 +25,7 @@
       >
         <h3>{titles[$Team][i]}</h3>
         <h3>Level {upgrade + 1}</h3>
+        <h3>Cost {costs[i]}</h3>
       </button>
     {/each}
   </div>
