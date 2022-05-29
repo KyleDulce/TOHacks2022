@@ -75,7 +75,22 @@ export default class GameController {
             "Iraq",
             "Central Asia",
             "Saudi Arabia",
-            "Turkey"
+            "Turkey",
+            "Brazil",
+            "Argentina",
+            "Chile",
+            "Peru",
+            "Greenland",
+            "Madgascar",
+            "Iceland",
+            "Mexico",
+            "Indonesia",
+            "Phillipines",
+            "Siberia",
+            "Texas",
+            "Russian Plain",
+            "West Africa",
+            "Scandinavia"
         ];
 
         return names[Math.floor(Math.random() * names.length)];
