@@ -24,19 +24,16 @@ export interface ServerToClientEvents {
 }
 
 export interface ClientToServerEvents {
-    click: (region: number, team: team) => void
-    upgrade: (upgrade: upgrade, team: team, callback?: (state: GameUpdate) => void) => void
+    click: (c: Click) => void
+    upgrade: (u: Upgrade, callback?: (state: GameUpdate) => void) => void
 }
 
+export interface Click{
+    region: number;
+    team: 0 | 1;
+}
 
-
-// export interface Click{
-//     region: number;
-//     team: 0 | 1;
-// }
-
-
-// export interface Upgrade{
-//     upgrade: number;
-//     team: 0 | 1;
-// }
+export interface Upgrade{
+    upgrade: number;
+    team: 0 | 1;
+}
