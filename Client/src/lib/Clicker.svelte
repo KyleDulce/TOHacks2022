@@ -1,5 +1,6 @@
 <script lang="ts">
   import { WebSocket } from "../stores";
+  import { GameState } from "../stores";
 
   function click() {
     $WebSocket.emit("click", 0, 0);
@@ -10,7 +11,7 @@
   <h1>Stats</h1>
 
   <div class="stats">
-    <h2>Region infections:</h2>
+    <h2>Region infections: {$GameState?.regions[0]?.infectedNumber}</h2>
     <h2>Total Numbers:</h2>
   </div>
 
