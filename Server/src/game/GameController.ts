@@ -6,8 +6,8 @@ export default class GameController {
     static singleton: GameController;
     static readonly DELAY_INTERVAL_FOR_LOOP_MILLIS = 1000;
     static readonly MAXPOP = 5000;
-    static readonly MAP_WIDTH = 5;
-    static readonly MAP_HEIGHT = 3;
+    static readonly MAP_WIDTH = 35;
+    static readonly MAP_HEIGHT = 5;
 
     regions: Region[] = [];
 
@@ -38,7 +38,6 @@ export default class GameController {
     }
 
     public onClick(event: ClickMessage) {
-        console.log("click!");
         if(!this.isAdjacentToRegion(event.region, event.team)) {
             return;
         }

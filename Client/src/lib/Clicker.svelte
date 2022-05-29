@@ -1,4 +1,9 @@
 <script lang="ts">
+  import { WebSocket } from "../stores";
+
+  function click() {
+    $WebSocket.emit("click", 0, 0);
+  }
 </script>
 
 <div class="container clicker">
@@ -9,7 +14,7 @@
     <h2>Total Numbers:</h2>
   </div>
 
-  <button>
+  <button on:click={click}>
     <i class="fa-solid fa-earth-americas globe" />
   </button>
 </div>

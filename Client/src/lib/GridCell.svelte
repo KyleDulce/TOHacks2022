@@ -2,6 +2,7 @@
   export let on_click: Function = () => {};
   export let clickable: boolean = false;
   export let highlight: boolean = false;
+  export let ratio: number;
 </script>
 
 <div
@@ -9,7 +10,9 @@
     clickable && on_click();
   }}
   class={`cell reg ${highlight ? "highlight" : ""} ` + $$props.class}
-  style={`cursor: ${clickable ? "pointer" : "default"}`}
+  style={`cursor: ${clickable ? "pointer" : "default"}; background-color: ${
+    ratio > 0.5 ? "red" : "green"
+  }`}
 >
   <slot />
 </div>
@@ -20,7 +23,7 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    background-color: var(--accent-color);
+    /* background-color: var(--accent-color); */
     border-radius: 4px;
     margin: 1px;
     font-size: 2rem;
