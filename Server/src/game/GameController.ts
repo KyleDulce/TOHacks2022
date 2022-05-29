@@ -31,6 +31,7 @@ export default class GameController {
             region.id = r;
             region.maxPopulation = this.getRandomInRange(100, GameController.MAXPOP);
             region.infectedNumber = Math.round(Math.random()) * region.maxPopulation;
+            region.name = this.randomRegionName();
             this.regions.push(region);
         }
 
@@ -39,6 +40,46 @@ export default class GameController {
         }
 
         setInterval(this.onRepeatingTask, GameController.DELAY_INTERVAL_FOR_LOOP_MILLIS);
+    }
+
+    public randomRegionName(){
+
+        let names = [
+            "Manhattan",
+            "New York State",
+            "Ontario",
+            "South Africa",
+            "Eastern Europe",
+            "Mediterranean",
+            "Western Europe",
+            "Britain",
+            "Tibet",
+            "Mongolia",
+            "Shanghai",
+            "Guangdong",
+            "Japan",
+            "Quebec",
+            "Alberta",
+            "Saskatewan",
+            "Nunavut",
+            "Yukon",
+            "Alaska",
+            "Nigeria",
+            "North Pole",
+            "South Pole",
+            "New Zealand",
+            "South East Asia",
+            "East Africa",
+            "Carribean",
+            "Iran",
+            "Iraq",
+            "Central Asia",
+            "Saudi Arabia",
+            "Turkey"
+        ];
+
+        return names[Math.floor(Math.random() * names.length)];
+
     }
 
     public onClick(event: ClickMessage) {

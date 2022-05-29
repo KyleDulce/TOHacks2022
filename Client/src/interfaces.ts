@@ -17,6 +17,7 @@ export interface Region{
     id: number;
     infectedNumber: number;
     maxPopulation: number;
+    name: string;
 }
 
 export interface ServerToClientEvents {
