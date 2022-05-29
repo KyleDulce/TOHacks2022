@@ -122,10 +122,10 @@ export default class GameController {
         }else if(newVal < 0){
             newVal = 0;
         }
-        if(newVal >= 0){
-            this.regions[event.region].infectedNumber = newVal;
-            this.updateRegionAdjAndNeighbours(event.region);
-        }
+
+        this.regions[event.region].infectedNumber = newVal;
+        this.updateRegionAdjAndNeighbours(event.region);
+
     }
 
     public getUpgradeInstance(team: 0 | 1, upgradeIdx: number){
