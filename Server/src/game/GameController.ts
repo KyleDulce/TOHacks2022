@@ -34,6 +34,10 @@ export default class GameController {
             this.regions.push(region);
         }
 
+        for(let r = 0; r < numOfRegions; r++) {
+            this.updateRegionAdj(r);
+        }
+
         setInterval(this.onRepeatingTask, GameController.DELAY_INTERVAL_FOR_LOOP_MILLIS);
     }
 
@@ -53,6 +57,7 @@ export default class GameController {
         let newVal = this.regions[event.region].infectedNumber + (clickValue * multiplier);
         if(newVal >= 0 && newVal <= this.regions[event.region].maxPopulation){
             this.regions[event.region].infectedNumber = newVal;
+            this.updateRegionAdjAndNeighbours(event.region);
         }
     }
 
@@ -221,5 +226,45 @@ export default class GameController {
             }
         }
         return false;
+    }
+
+    private updateRegionAdj(region_id: number) {
+        let region = this.regions[region_id]
+        region.team = -1;
+        let adj0 = this.isAdjacentToRegion(region_id, 0);
+        let adj1 = this.isAdjacentToRegion(region_id, 1);
+        if(adj0 && adj1) {
+            region.team = 2;
+        } else if(adj0) {
+            region.team = 0;
+        } else if(adj1) {
+            region.team = 1
+        }
+    }
+
+    private updateRegionAdjAndNeighbours(region_id: number) {
+        const maxRegionCount = GameController.MAP_WIDTH * GameController.MAP_HEIGHT;
+        let regionsToCheck: number[] = [region_id];
+
+        //checks up and down
+        if(region_id - GameController.MAP_WIDTH >= 0) {
+            regionsToCheck.push(region_id - GameController.MAP_WIDTH);
+        }
+        if(region_id + GameController.MAP_WIDTH < maxRegionCount) {
+            regionsToCheck.push(region_id + GameController.MAP_WIDTH);
+        }
+
+        //checks left and right
+        //note if width 5 + 1, puts it on the next row, that is not adjecent
+        if((region_id + 1) < maxRegionCount && (region_id + 1) % GameController.MAP_WIDTH != 0) {
+            regionsToCheck.push(region_id + 1);
+        }
+        if((region_id - 1) >= 0 && (region_id - 1) % GameController.MAP_WIDTH != (GameController.MAP_WIDTH - 1)) {
+            regionsToCheck.push(region_id - 1);
+        }
+
+        for(let r = 0; r < regionsToCheck.length; r++) {
+            this.updateRegionAdj(regionsToCheck[r]);
+        }
     }
 }
