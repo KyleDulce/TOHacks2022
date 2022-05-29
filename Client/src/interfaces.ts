@@ -36,5 +36,5 @@ export interface Click{
 
 export interface Upgrade{
     upgrade: number;
-    team: 0 | 1;
+    team: number;
 }
