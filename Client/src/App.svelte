@@ -54,4 +54,10 @@
     --special-color-disabled: var(--blackspecialcolordisabled);
     --special-color-lip: var(--blackspecialcolorlip);
   }
+
+  @media only screen and (max-width: 700px) {
+    .app {
+      flex-direction: column;
+    }
+  }
 </style>
