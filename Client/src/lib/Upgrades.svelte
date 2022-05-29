@@ -4,6 +4,11 @@
   $: upgrades =
     $Team === 0 ? $GameState?.whoUpgrades : $GameState?.infectedUpgrades;
 
+  $: costs =
+    $Team === 0
+      ? $GameState?.whoUpgradeCosts
+      : $GameState?.infectedUpgradeCosts;
+
   const titles = [
     ["Click Multiplier", "Auto Clicker", "Humanity Point Booster"],
     ["Click Multiplier", "Auto Clicker", "Covid Point Booster"],
@@ -17,7 +22,7 @@
 </script>
 
 <div class="container main">
-  <h2>Upgrades</h2>
+  <h2 class="tit">Upgrades</h2>
 
   <div class="hold">
     {#each upgrades || [] as upgrade, i}
@@ -33,6 +38,7 @@
           <span class="in">
             <h2>{titles[$Team][i]}</h2>
             <h3>Level {upgrade + 1}</h3>
+            <h3>Cost {costs[i]}</h3>
           </span>
 
           <img class="img" src={images[i]} alt="upgrade icon" />
@@ -43,9 +49,12 @@
 </div>
 
 <style>
+  .tit {
+    margin-bottom: 1rem;
+  }
   h2 {
     margin: 0;
-    margin-bottom: 1rem;
+    /* margin-bottom: 1rem; */
   }
   .main {
     height: 100%;
@@ -71,7 +80,11 @@
     padding: 1rem;
   }
   .img {
-    width: 10rem;
+    height: 5rem;
+  }
+
+  h3 {
+    margin: 0;
   }
 
   .in {

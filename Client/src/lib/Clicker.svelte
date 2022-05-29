@@ -29,18 +29,25 @@
     <img src="https://rimu.b-cdn.net/imgs/globe.png" alt="globe" />
   </button>
 
-  <h2 class="t">Choose Team:</h2>
-  <div class="teams">
-    <button
-      on:click={() => {
-        Team.set(0);
-      }}>Humanity</button
-    >
-    <button
-      on:click={() => {
-        Team.set(1);
-      }}>Covid</button
-    >
+  <h2>
+    Influence Points: {($Team === 0
+      ? $GameState?.whoInfluence
+      : $GameState?.infectedInfluence) || 0}
+  </h2>
+  <div class="bot">
+    <h2 class="t">Choose Team:</h2>
+    <div class="teams">
+      <button
+        on:click={() => {
+          Team.set(0);
+        }}>Humanity</button
+      >
+      <button
+        on:click={() => {
+          Team.set(1);
+        }}>Covid</button
+      >
+    </div>
   </div>
 </div>
 
@@ -50,6 +57,10 @@
   }
   .teams {
     display: flex;
+  }
+
+  .bot {
+    margin-top: 1rem;
   }
 
   .teams button {
