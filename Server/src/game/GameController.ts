@@ -90,7 +90,13 @@ export default class GameController {
             "Texas",
             "Russian Plain",
             "West Africa",
-            "Scandinavia"
+            "Scandinavia",
+            "Bikini Bottom",
+            "New Orleans",
+            "The Maldives",
+            "Button",
+            "Employee 427's Office",
+            "Airship"
         ];
 
         return names[Math.floor(Math.random() * names.length)];
