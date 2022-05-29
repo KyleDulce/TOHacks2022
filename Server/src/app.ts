@@ -1,11 +1,11 @@
 //constants
-const port: number = parseInt(process.env.PORT || "8001");
+const port: number = parseInt(process.env.PORT || "3000");
 
 console.log("Setting up...");
 
 import express from "express";
 import http from 'http';
-import { Server, Socket } from "socket.io";
+import { Server } from "socket.io";
 import cors from 'cors';
 import SocketController from "./SocketController";
 import GameController from "./game/GameController";
